@@ -13,6 +13,20 @@ public class BankCloseAccountModel {
             statement.setString(1, Integer.toString(BankAccountStatus.CLOSED.ordinal() + 1));
             statement.setString(2, Integer.toString(userBankAccount.getBankAccountID()));
             statement.executeUpdate();
+            statement.close();
+        } catch (BankException e) {
+            e.run();
+        }
+    }
+
+    public static void activateAccount(UserBankAccount userBankAccount) throws SQLException {
+        try {
+            String SQLStatement = "call updateBankAccountStatus(?,?)";
+            PreparedStatement statement = BankUtil.connection.prepareStatement(SQLStatement);
+            statement.setString(1, Integer.toString(BankAccountStatus.ACTIVE.ordinal() + 1));
+            statement.setString(2, Integer.toString(userBankAccount.getBankAccountID()));
+            statement.executeUpdate();
+            statement.close();
         } catch (BankException e) {
             e.run();
         }

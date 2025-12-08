@@ -25,6 +25,10 @@ public class Transaction {
         return amount;
     }
 
+    public String getDate() {
+        return createdAt;
+    }
+
     @Override
     public String toString() {
         return "This transaction of type (" + type.name + ")\n" +
